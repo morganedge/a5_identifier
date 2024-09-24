@@ -13,12 +13,14 @@ options:
   -r RUNTIME, --runtime RUNTIME
                         time in minutes to obtain sys info
 ```
-e.g. python3 a5_check.py -f 952.8 
+e.g. python3 a5_check.py -f 952.8  
      python3 a5_check.py -f 952.8 -r 120
 
 ## display_stats.py
 
 Reads the contents of the JSON files and display the data in a table
+
+Sample output:
 
 ```
 ================================================================================
