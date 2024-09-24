@@ -10,6 +10,7 @@ Several apps and tools required
 ### Passive Method
 
 1. gr-gsm: (https://github.com/ptrkrysik/gr-gsm) 
+	- For GNU Radio 3.10+: (https://github.com/bkerler/gr-gsm)
 2. SDR
 	- Tested with HackRF and RTL-SDR
 

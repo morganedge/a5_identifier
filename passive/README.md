@@ -13,8 +13,13 @@ options:
   -r RUNTIME, --runtime RUNTIME
                         time in minutes to obtain sys info
 ```
-e.g. python3 a5_check.py -f 952.8  
-     python3 a5_check.py -f 952.8 -r 120
+
+Example commands: 
+
+```
+python3 a5_check.py -f 952.8  
+python3 a5_check.py -f 952.8 -r 120
+```
 
 ## display_stats.py
 
