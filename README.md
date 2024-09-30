@@ -1,4 +1,4 @@
-# a5_identifier
+# A5 identifier
 
 A selection of Python scripts to identify the A5 algorithms used by a GSM network or BTS.
 
