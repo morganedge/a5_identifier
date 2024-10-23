@@ -30,7 +30,7 @@ print("="*80)
 
 for file in file_list:
 	if file.split(".")[-1] == "json":
-		bts_data = utils.open_json(file)
+		bts_data = utils.open_json("./scans/" + file)
 		print_info(bts_data)
 
 
