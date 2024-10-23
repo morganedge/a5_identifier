@@ -124,8 +124,6 @@ try:
 					a5_3_count += 1
 
 				print_summary()
-	capture.clear()
-	capture.close()
 except KeyboardInterrupt:
 	capture.clear()
 	capture.close()
