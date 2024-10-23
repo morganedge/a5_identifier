@@ -65,10 +65,10 @@ a5_1_count, a5_2_count, a5_3_count, a5_count = 0, 0, 0, 0
 try:
 	capture = pyshark.LiveCapture(interface='lo', bpf_filter=f'udp and port 4729')
 
-	os.system(f"gnome-terminal -- python3 send_dummy_data.py -t {(args.runtime * 60) + 5}")
+	os.system(f"gnome-terminal -- python3 send_dummy_data.py -t {(args.runtime * 60) + 15}")
 
 	for packet in capture.sniff_continuously():
-		if (time.time() - last_detection_time) >= timeout or (time.time() - start_time) > (args.runtime * 60):
+		if (time.time() - last_detection_time) >= timeout or (time.time() - start_time) >= (args.runtime * 60):
 			print_summary()
 			break
 
@@ -93,8 +93,8 @@ try:
 
 					bts_check = True
 
-					if os.path.exists(f"{mcc}_{mnc}_{lac}_{cid}_{str(args.freq).replace('.', '_')}.json"):
-						bts_data = utils.open_json(f"{mcc}_{mnc}_{lac}_{cid}_{str(args.freq).replace('.', '_')}.json")
+					if os.path.exists(f"./scans/{mcc}_{mnc}_{lac}_{cid}_{str(args.freq).replace('.', '_')}.json"):
+						bts_data = utils.open_json(f"./scans/{mcc}_{mnc}_{lac}_{cid}_{str(args.freq).replace('.', '_')}.json")
 						a5_info = bts_data["A5 count"]
 					else:
 						bts_data = {"MCC": mcc, "MNC": mnc, "LAC": lac, "CID": cid, "Freq": args.freq}
