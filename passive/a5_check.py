@@ -76,7 +76,7 @@ try:
 		for layers in packet.layers:
 			layer_names.append(layers.layer_name)
 
-		if 'gsmtap' not in layer_names:
+		if 'gsmtap' not in layer_names or packet['gsmtap'].has_field('version_invalid'):
 			continue
 
 		last_detection_time = time.time()
