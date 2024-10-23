@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import pyshark
-from pyshark.capture.capture import StopCapture
 import argparse
 import os
 import sys
@@ -70,8 +69,7 @@ try:
 	for packet in capture.sniff_continuously():
 		if (time.time() - last_detection_time) >= timeout or (time.time() - start_time) >= (args.runtime * 60):
 			print_summary()
-			# break
-			raise StopCapture()
+			break
 
 		layer_names = []
 		for layers in packet.layers:
@@ -126,9 +124,6 @@ try:
 					a5_3_count += 1
 
 				print_summary()
-	capture.clear()
-	capture.close()
-except StopCapture:
 	capture.clear()
 	capture.close()
 except KeyboardInterrupt:
