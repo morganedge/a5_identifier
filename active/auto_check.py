@@ -21,7 +21,9 @@ parser = argparse.ArgumentParser(
 	description='Counts the occurrence of the versions of A5 used in a network'
 	)
 parser.add_argument('-s', '--softsim', help="installation location of SoftSIM", required=True)
-parser.add_argument('-o', '--osmobb', help="installation location of osmocom-bb", required=True)
+parser.add_argument('-O', '--osmocon', help="installation location of OsmocomBB osmocon", required=True)
+parser.add_argument('-M', '--mobile', help="installation location of OsmocomBB mobile", required=True)
+parser.add_argument('-F', '--firmware', help="installation location of firmware", required=True)
 parser.add_argument('-m', '--model', help="osmocom-bb phone protocol", default="c123xor",
 					choices=['c123', 'c123xor', 'c140', 'c140xor', 'c155', 'romload', 'mtk'], required=False)
 parser.add_argument('-u', '--usbport', help="serial port connected to phone", default='/dev/ttyUSB0', required=False)
@@ -268,7 +270,7 @@ def start_phone(mobile_conf):
 	log_on = False
 	
 	sim_server = args.softsim + "/src/demo_server.rb"
-	osmocom_mob = args.osmobb + "/src/host/layer23/src/mobile/mobile"
+	osmocom_mob = args.mobile #+ "/src/host/layer23/src/mobile/mobile"
 
 	#close mobile if already running
 	if len(prog_pids("mobile")[0]) != 0:
@@ -290,8 +292,8 @@ def start_phone(mobile_conf):
 def main():
 	global log_file
 
-	osmocon_loc = args.osmobb + "/src/host/osmocon/osmocon"
-	osmocon_conf = args.osmobb + "/src/target/firmware/board/compal_e88/layer1.highram.bin"
+	osmocon_loc = args.osmocon #+ "/src/host/osmocon/osmocon"
+	osmocon_conf = args.firmware #+ "/src/target/firmware/board/compal_e88/layer1.highram.bin"
 
 
 	# start osmocon
