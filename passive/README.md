@@ -1,5 +1,11 @@
 # Files used for passive scanning of A5 algorithms
 
+```
+source venv/bin/activate
+python3 a5_check.py -f 952.8
+python3 display_stats.py
+```
+
 ## a5_check.py
 
 ```

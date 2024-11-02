@@ -171,14 +171,23 @@ def logger(packet):
 
 					#CMC
 					if dtap_type == 0x35:
-						f.write(f"\t{' '*3}Algorithm: A5/{int(packet['gsm_a.dtap'].get_field('gsm_a.rr.algorithm_identifier'))+1}\n")
+						algo = int(packet['gsm_a.dtap'].get_field('gsm_a.rr.algorithm_identifier')) + 1
+						f.write(f"\t{' '*3}Algorithm: A5/{algo}\n")
+
+						if algo == 3:
+							# A5/3 unsupported so CMC frame not accepted by BTS
+							stop_loop = True
+							log_on = False
+
+							# stop mobile
+							command = "{ echo 'en'; echo 'off'; sleep 1; } | telnet localhost 4247"
+							os.system(command)
 
 			#Channel Release
 			if layer_names[-1] == 'gsm_a.dtap' and packet['gsm_a.dtap'].has_field('msg_rr_type'):
 				dtap_type = int(packet['gsm_a.dtap'].get_field('gsm_a.dtap.msg_rr_type'), 16)
 
 				if dtap_type == 0x0d:
-					#print(packet['gsm_a.dtap'].field_names)
 					if packet['gsm_a.dtap'].has_field('gsm_a_rr_rrcause'):
 						f.write(f"\t{' '*3}Reason: {packet['gsm_a.dtap'].get_field('gsm_a.rr.RRcause').showname_value}\n")
 					stop_loop = True
