@@ -21,10 +21,11 @@ def print_summary():
 	global a5_1_count
 	global a5_2_count
 	global a5_3_count
+	global a5_4_count
 	global a5_count
 
 	if a5_count > 0:
-		for i in range(0, 7):
+		for i in range(0, 8):
 			print('\033[1A', end='\x1b[2K')
 
 	if a5_count > 0:
@@ -34,6 +35,7 @@ def print_summary():
 		print(f"{' '*4}A5/1: {a5_1_count} ({round((a5_1_count/a5_count)*100, 2)}%)")
 		print(f"{' '*4}A5/2: {a5_2_count} ({round((a5_2_count/a5_count)*100, 2)}%)")
 		print(f"{' '*4}A5/3: {a5_3_count} ({round((a5_3_count/a5_count)*100, 2)}%)")
+		print(f"{' '*4}A5/4: {a5_4_count} ({round((a5_4_count / a5_count) * 100, 2)}%)")
 
 
 
@@ -47,7 +49,7 @@ if scan_dev == "RTL-SDR" and args.freq > 1750:
 
 print(f"    [+] Running scan on {args.freq}M for {args.runtime} minutes")
 os.system(f"gnome-terminal -- grgsm_livemon_headless --args={scan_dev} -f {args.freq}M")
-print("\n\n\n\n\n\n")
+print("\n\n\n\n\n\n\n")
 
 
 start_test = datetime.now()
@@ -59,7 +61,7 @@ bts_check = None
 bts_data = {}
 a5_info = []
 
-a5_1_count, a5_2_count, a5_3_count, a5_count = 0, 0, 0, 0
+a5_1_count, a5_2_count, a5_3_count, a5_4_count, a5_count = 0, 0, 0, 0, 0
 
 try:
 	capture = pyshark.LiveCapture(interface='lo', bpf_filter=f'udp and port 4729')
@@ -122,6 +124,8 @@ try:
 					a5_2_count += 1
 				elif int(algo, 16) == 2:
 					a5_3_count += 1
+				elif int(algo, 16) == 3:
+					a5_4_count += 1
 
 				print_summary()
 except KeyboardInterrupt:
@@ -138,7 +142,7 @@ utils.stop_py_prog("send_dummy_data", 'send_dummy_data.py')
 
 if a5_count > 0:
 	a5_usage = {"Start Time": start_test.strftime("%Y/%m/%d %H:%M:%S"), "A5 count": a5_count,
-				"A5/1 count": a5_1_count, "A5/2 count": a5_2_count, "A5/3 count": a5_3_count,
+				"A5/1 count": a5_1_count, "A5/2 count": a5_2_count, "A5/3 count": a5_3_count, "A5/4 count": a5_4_count,
 				"End Time": end_test.strftime("%Y/%m/%d %H:%M:%S"), "Total Time": f"{end_test - start_test}"}
 	a5_info.append(a5_usage)
 	bts_data["A5 count"] = a5_info
