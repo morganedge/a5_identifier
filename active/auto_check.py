@@ -189,8 +189,9 @@ class PacketLogger:
 							algo = int(packet['gsm_a.dtap'].get_field('gsm_a.rr.algorithm_identifier')) + 1
 							f.write(f"\t{' '*3}Algorithm: A5/{algo}\n")
 
-							if algo == 3:
+							if algo == 3 or algo == 4:
 								# A5/3 unsupported so CMC frame not accepted by BTS
+								# A5/4 definitely not supported
 								self.stop_loop = True
 								self.log_on = False
 
@@ -519,7 +520,7 @@ def main():
 		os.system(f"gnome-terminal -- sudo /.'{osmocon_loc}' -p {args.usbport} -m {args.model} -c '{osmocon_conf}'")	
 
 
-	test_confs = ['a50mobile.cfg', 'a51mobile.cfg', 'a52mobile.cfg', 'a53mobile.cfg', 'a5amobile.cfg']
+	test_confs = ['a50mobile.cfg', 'a51mobile.cfg', 'a52mobile.cfg', 'a53mobile.cfg', 'a54mobile.cfg', 'a5amobile.cfg']
 
 	for conf in test_confs:
 		results_log.log_file = f"{work_area}/logs/{datetime.now().strftime('%Y%m%d_%H%M%S')}_{conf[:3]}"
